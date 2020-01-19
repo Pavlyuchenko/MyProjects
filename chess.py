@@ -8,10 +8,7 @@ class Board(object):
         self.values, self.pieces = self.create_pieces()
 
     def create_board(self):
-        letters = list(string.ascii_lowercase)[0:8]
-        numbers = list(x for x in range(0, 8))
         playboard = [["-"] * 8, ["-"] * 8, ["-"] * 8, ["-"] * 8, ["-"] * 8, ["-"] * 8, ["-"] * 8, ["-"] * 8]
-        counter = 0
         '''
         for letter in letters:
             for number in numbers:
@@ -32,10 +29,10 @@ class Board(object):
         black_value = 0
 
         for i, j in zip(white, black):
-            self.playboard[i.xPos][i.yPos] = i.img
+            self.playboard[i.xPos][i.yPos] = i
             white_value += i.value
 
-            self.playboard[j.xPos][j.yPos] = j.img
+            self.playboard[j.xPos][j.yPos] = j
             black_value += j.value
 
         values = [white_value, black_value]
@@ -50,13 +47,23 @@ class Board(object):
         print("  ---------------------------------")
         for x in self.playboard:
             print(chr(ascii_counter+97), "", end="")
-            ascii_counter += 1
             for y in x:
                 print("|", y, "", end="")
-            print("|")
+            print("|", end="")
+            print("", chr(ascii_counter+97))
+            ascii_counter += 1
             if ascii_counter != 8:
                 print("  |---+---+---+---+---+---+---+---|")
         print("  ---------------------------------")
+        print("    1   2   3   4   5   6   7   8")
+
+    def move(self, old_loc, new_loc):
+        piece = self.playboard[int(old_loc[0])][int(old_loc[1])-1]
+
+        self.playboard[int(old_loc[0])][int(old_loc[1])-1] = "-"
+        self.playboard[int(new_loc[0])][int(new_loc[1])-1] = piece
+
+        self.print_board()
 
 
 class Piece:
@@ -67,6 +74,9 @@ class Piece:
         self.xPos = xPos
         self.yPos = yPos
         self.img = img
+
+    def __str__(self):
+        return self.img
 
 
 class Pawn(Piece):
@@ -105,6 +115,22 @@ class Queen(Piece):
 brd = Board()
 brd.print_board()
 print(brd.values)
+
+moves = ["g5 e5", "h4 d8", "g4 e4", "h3 e6", "h2 f3", "f3 d2", ]
+
+counter = 0
+
+for move in moves:
+    piece_to_play = move.split(" ")[0]
+    piece_new_location = move.split(" ")[1]
+
+    piece_to_play = str(ord(piece_to_play[0])-97) + piece_to_play[1]
+    piece_new_location = str(ord(piece_new_location[0])-97) + piece_new_location[1]
+
+    brd.move(piece_to_play, piece_new_location)
+
+
+
 '''root = Tk()
 
 topFrame = Frame(root)
