@@ -85,35 +85,6 @@ class BinaryTree:
                 queue.enqueue(node.right)
         return traversal
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def reverse_level_order_print(self, start):
         if start is None:
             return
@@ -135,6 +106,17 @@ class BinaryTree:
                 s.push(str(curr.left.value))
 
         s.print_stack()
+
+    def height(self, node):
+        if node is None:
+            return -1
+
+        left = self.height(node.left)
+        right = self.height(node.right)
+
+        return 1+max(left, right)
+
+
                 
 tree = BinaryTree(1)
 tree.root.left = Node(2)
@@ -147,3 +129,4 @@ tree.root.left.left.left = Node(8)
 tree.root.left.left.right = Node(9)
 
 print(tree.print_tree("levelorder"))
+print(tree.height(tree.root))
