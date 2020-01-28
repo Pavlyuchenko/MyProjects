@@ -46,12 +46,25 @@ class BinarySearchTree:
             elif data > curr.data and curr.right:
                 return self._find(data, curr.right)
 
+    def inorder_print_tree(self):
+        if self.root:
+            self._inorder_print_tree(self.root)
+
+    def _inorder_print_tree(self, curr):
+        if curr:
+            self._inorder_print_tree(curr.left)
+            print(str(curr.data) + " < ", end="")
+            self._inorder_print_tree(curr.right)
+
 bst = BinarySearchTree()
-bst.insert(4)
-bst.insert(2)
 bst.insert(8)
-bst.insert(5)
-bst.insert(10)  
+bst.insert(3)
+bst.insert(10)
+bst.insert(1)
+bst.insert(6)  
+bst.insert(9)  
+bst.insert(11)  
 
 print(bst.find(2))
+print(bst.inorder_print_tree())
     
