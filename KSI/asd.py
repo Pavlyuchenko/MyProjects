@@ -16,15 +16,11 @@ def count_nodes(tree):
 
 
 def node_count(node, counter):
-    if not node:
-        return 0
-    res = counter
     if node.children:
         for i in node.children:
-            res += node_count(i, counter)
-    return res + 1
+            counter += node_count(i, counter)
+    print(node.value, counter)
+    return counter + 1
 
 # Testy:
-print(count_nodes(Tree(None))) # 0
-print(count_nodes(Tree(Node(10)))) # 1
-print(count_nodes(Tree(Node(5, [Node(6), Node(17)])))) #3
+print(count_nodes(Tree(Node(1, [Node(2), Node(5)])))) #3
