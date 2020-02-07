@@ -4,43 +4,27 @@ http://mo.mff.cuni.cz/p/69/p1.pdf
 
     Mame za ukol spocitat moznosti vyjiti schodu pri zadane vysce jednoho kroku a listu vsech schodu.
 
-    Zaciname na nultem schode, ktery není zahrnut ve funkci pocet_kroku
+    Zaciname na nultem schode a pokazde muzeme udelat krok rovny maximalne promenne krok. Nasim ukolem je najit vsechny moznosti k dosazeni posledniho schodu v listu schody[].
 
+    Autor: Michal Pavlíček
 '''
 
-def pocet_kroku(schody, krok, vysky_schodu): # Pro zacatecni schod ("Nulty" schod) zavola pro kazdou moznost funkci pokus
-    reseni = 0 # Pocet reseni
-    curr_dist = 0 # Jak velky krok jsme udelali
+def pocet_kroku(pocet_schodu, krok, schody, curr_schod=0): # pocet_schodu = n; krok = d; schody = h1...hn
+    reseni = 0 # Pocet vsech reseni
+    curr_dist = 0 # Dosavadni vyska naseho kroku
 
-    for i in range(len(vysky_schodu)): # Pro kazde i v listu vysky_schodu
-        curr_dist += vysky_schodu[i] # Zvysi jak velky krok jsme usli
+    for i in range(curr_schod+1, len(schody)): # Pro i v rozsahu od momentalniho schodu + 1 az do delky schodu
+        curr_dist += schody[i] # Zvys dosavani vysku kroku
 
-        if curr_dist > krok: # Pokud jsme udelali vetsi krok nez je povoleno, vyjede ze smycky
+        if curr_dist > krok: # Pokud jsme prekrocili vysku kroku, nepokracuj dal a rozbij smycku
             break
 
-        reseni += pokus(krok, vysky_schodu, i, 1) # Pro kazdou moznost zvysi reseni
+        reseni += pocet_kroku(pocet_schodu, krok, schody, i) # Rekurzivně zavolej tuto funkci s parametrem momentalniho schodu a jeji return pricti k promenne reseni
 
-    return reseni # Vrati vysledek
-
-
-def pokus(krok, schody, curr_schod,first_run=False):
-
-    reseni = 0
-    curr_dist = 0
-
-    for i in range(curr_schod+1, len(schody)):
-        curr_dist += schody[i]
-
-        if curr_dist > krok:
-            break
-
-        reseni += pokus(krok, schody, i, first_run+1)
-
-    if curr_schod == len(schody)-1:
+    if curr_schod == len(schody)-1: # Pokud jsme se dostali az nakonec, zvetsi reseni o jedno
         reseni += 1
 
-    if schody[curr_schod] == 4:
-        print("----")
-    return reseni
+    return reseni # Vrat reseni
 
-print(pocet_kroku(4, 100, [20, 30, 50, 30]))
+
+print(pocet_kroku(4, 100, [0, 1, 2, 3, 3]))
