@@ -27,4 +27,4 @@ def pocet_kroku(pocet_schodu, krok, schody, curr_schod=0): # pocet_schodu = n; k
     return reseni # Vrat reseni
 
 
-print(pocet_kroku(4, 100, [0, 1, 2, 3, 3]))
+print(pocet_kroku(4, 100, [155]))

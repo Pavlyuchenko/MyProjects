@@ -1,0 +1,2 @@
+2020-02-08 12:56:24,267 :: shakespeare.in
+2020-02-08 12:56:24,268 :: [Errno 2] No such file or directory: '.shakespeare.in'
