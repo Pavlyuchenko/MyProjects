@@ -48,24 +48,35 @@ pdfmetrics.registerFont(
 pdfmetrics.registerFont(
     TTFont('Ubuntu_R', 'Ubuntu-Regular.ttf')
 )
-pdfmetrics.registerFont(
-    TTFont('Anonymous_R', 'AnonymousPro-Regular.ttf')
-)
 
 
 # Write title
-pdf.setFont('Ubuntu_B', 36)
-pdf.setTitle("Test")
+pdf.setTitle("Kulový blesk")
+
+# DO NOT TOUCH, IT WORKS!!!
+from reportlab.lib.units import cm
+from reportlab.platypus import Frame, Image
+from reportlab.lib import utils
+
+def get_image(path, width=1*cm):
+    img = utils.ImageReader(path)
+    iw, ih = img.getSize()
+    aspect = ih / float(iw)
+    return Image(path, width=width, height=(width * aspect))
+frame = Frame(1*cm, 1*cm, 19*cm, 10*cm)
+story = []
+story.append(get_image('kulovy_blesk.png', width=8*cm))
+frame.addFromList(story, pdf)
+pdf.drawImage('kulovy_blesk.png', 30, 380, width=200, preserveAspectRatio=True)
+# END OF DO NOT TOUCH
 
 # Heading
-pdf.drawCentredString(295, 780, "Heading")
-
-# Subheading
-pdf.setFont('Ubuntu_R', 15)
-pdf.drawCentredString(295, 750, "Subtitles are long")
-
-# Draw line
-pdf.line(30, 710, 550, 710)
+pdf.setFont('Ubuntu_B', 32)
+pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
+pdf.drawCentredString(350, 780, "Kulový blesk")
+pdf.setFont('Ubuntu_B', 15)
+pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
+pdf.drawCentredString(295, 760, "Liou Cch'sin")
 
 # Long string
 pdf.setFont('Ubuntu_R', 15)
