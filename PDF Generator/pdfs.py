@@ -70,13 +70,45 @@ frame.addFromList(story, pdf)
 pdf.drawImage('kulovy_blesk.png', 30, 380, width=200, preserveAspectRatio=True)
 # END OF DO NOT TOUCH
 
-# Heading
+# Title
 pdf.setFont('Ubuntu_B', 32)
 pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
 pdf.drawCentredString(350, 780, "Kulový blesk")
+
+# Author
 pdf.setFont('Ubuntu_B', 15)
 pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
-pdf.drawCentredString(295, 760, "Liou Cch'sin")
+pdf.drawCentredString(295, 755, "Liou Cch'sin")
+
+# Most important info
+
+# Names
+pdf.setFont('Ubuntu_B', 15)
+pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
+pdf.drawString(253, 710, "Hlavní téma:")
+pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
+pdf.drawString(253, 675, "Časoprostor:")
+pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
+pdf.drawString(253, 640, "Žánr:")
+pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
+pdf.drawString(253, 605, "Datum dočtení:")
+pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
+pdf.drawString(253, 570, "Literární druh:")
+pdf.setFillColorRGB(0.85098039215,0.11764705882,0.21176470588)
+pdf.drawString(253, 535, "Hlavní postavy:")
+# Values
+pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
+pdf.drawString(385, 710, "Nové fyzikální objevy")
+pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
+pdf.drawString(385, 675, "21. století, Čína")
+pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
+pdf.drawString(385, 640, "Sci-fi")
+pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
+pdf.drawString(385, 605, "14. 2. 2020")
+pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
+pdf.drawString(385, 570, "Epika")
+pdf.setFillColorRGB(0.3294117647,0.3294117647,0.3294117647)
+pdf.drawString(385, 535, "Čchen, Lin Jun, Ting I")
 
 # Long string
 pdf.setFont('Ubuntu_R', 15)
@@ -88,7 +120,7 @@ res = wrap_text(fillText, 60)
 for line in res:
     text.textLine(line)
 
-pdf.drawText(text)
+# pdf.drawText(text)
 
 
 pdf.save()
